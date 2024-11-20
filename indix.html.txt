@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: url('/api/placeholder/1920/1080') center/cover fixed;
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .date {
+            font-size: 1.5em;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .couple-names {
+            font-size: 2.5em;
+            margin: 30px 0;
+        }
+
+        .and {
+            font-size: 1.8em;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .slideshow {
+            max-width: 600px;
+            height: 400px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .details {
+            margin: 40px 0;
+            line-height: 1.6;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .music-control i {
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .couple-names {
+                font-size: 1.8em;
+            }
+            .slideshow {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Undangan Pernikahan</h1>
+            <div class="date">Sabtu, 20 April 2024</div>
+        </div>
+
+        <div class="couple-names">Ahmad</div>
+        <div class="and">&</div>
+        <div class="couple-names">Sarah</div>
+
+        <div class="slideshow">
+            <div class="slide active">
+                <img src="/api/placeholder/600/400" alt="Foto 1">
+            </div>
+            <div class="slide">
+                <img src="/api/placeholder/600/400" alt="Foto 2">
+            </div>
+            <div class="slide">
+                <img src="/api/placeholder/600/400" alt="Foto 3">
+            </div>
+        </div>
+
+        <div class="details">
+            <p>Dengan penuh kebahagiaan,</p>
+            <p>kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri</p>
+            <p>acara pernikahan kami yang akan dilaksanakan pada:</p>
+            <br>
+            <p>Akad Nikah: 09.00 WIB</p>
+            <p>Resepsi: 11.00 - 14.00 WIB</p>
+            <br>
+            <p>Bertempat di:</p>
+            <p>Gedung Pernikahan Bahagia</p>
+            <p>Jl. Cinta Sejati No. 123, Jakarta</p>
+        </div>
+    </div>
+
+    <div class="music-control">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="/path-to-your-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Slideshow
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 3000);
+
+        // Music Control
+        const musicControl = document.querySelector('.music-control');
+        const music = document.getElementById('background-music');
+        let isPlaying = false;
+
+        musicControl.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                musicControl.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                music.play();
+                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
+</body>
+</html>
